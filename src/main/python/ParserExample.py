@@ -35,9 +35,9 @@ for post in wall[1:]:
             party['place'] = "ПАВЕРХАУС"
             party['price'] = 0
 
-            query = "INSERT INTO Tusovka (name, date, description, price, place_id) VALUES " \
+            query = "INSERT INTO tusovka (name, date, description, price, place_id) VALUES " \
                     "(%(name)s, %(date)s, %(description)s, %(price)s, " \
-                    "(SELECT id FROM Place WHERE Place.name = 'Powerhouse'))"
+                    "(SELECT id FROM place WHERE place.name = 'Powerhouse'))"
             cursor.execute(query, party)
 
             cnx.commit()

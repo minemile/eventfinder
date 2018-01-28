@@ -41,7 +41,6 @@ for post in wall[1:]:
             cursor.execute(query, party)
 
             cnx.commit()
-        # actions with database
 
 cursor.close()
 cnx.close()

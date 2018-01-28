@@ -1,21 +1,22 @@
 package com.banditos.server.model;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="place")
 public class Place {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String address;
+
+    @Column(length = 2000)
     private String description;
+
     @OneToMany(mappedBy = "place")
     private List<Tusovka> tusovkas;
 
@@ -49,5 +50,10 @@ public class Place {
 
     public void setTusovkas(List<Tusovka> tusovkas) {
         this.tusovkas = tusovkas;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

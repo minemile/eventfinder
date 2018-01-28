@@ -1,4 +1,4 @@
-package com.banditos.server;
+package com.banditos.server.orm;
 
 import com.banditos.server.model.Tusovka;
 import org.springframework.data.repository.CrudRepository;

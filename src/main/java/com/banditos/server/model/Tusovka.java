@@ -1,18 +1,27 @@
 package com.banditos.server.model;
 
 import javax.persistence.*;
+import java.net.URL;
 import java.util.Date;
 
 @Entity
 @Table(name="tusovka")
 public class Tusovka {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private Date date;
+
+    @Column(length = 2000)
     private String description;
+
     private String place;
+
+    private URL link;
+
     private int price;
 
     protected Tusovka() {}
@@ -58,12 +67,21 @@ public class Tusovka {
     }
 
     @ManyToOne
+    @JoinColumn(name = "place_id")
     public String getPlace() {
         return place;
     }
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public URL getLink() {
+        return link;
+    }
+
+    public void setLink(URL link) {
+        this.link = link;
     }
 
     public int getPrice() {

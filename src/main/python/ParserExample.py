@@ -1,15 +1,14 @@
 from requests import request
 import re
 from datetime import datetime
-import mysql.connector
+import psycopg2
 
 with open('serviceToken','r') as f:
     TOKEN = f.read()
 
-cnx = mysql.connector.connect(user='root', password='1',
-                              host='127.0.0.1',
-                              database='eventfinder')
-cursor = cnx.cursor()
+cnx = psycopg2.connect("dbname='eventfinder' user='postgres' host='localhost' password='1'")
+cnx.autocommit = True
+cur = cnx.cursor()
 
 
 # Powerhouse id present
@@ -25,22 +24,23 @@ for post in wall[1:]:
         if '[club' in text:
             comm_id = re.search('\[club(.*)\|', text).group(1)
             event_query = "https://api.vk.com/method/groups.getById?group_ids= " \
-                    + comm_id + "&fields=place,start_date&access_token=" + TOKEN
-            comm_info = request("POST", event_query).json()
+                    + comm_id + "&fields=place,start_date,screen_name&access_token=" + TOKEN
+            comm_info = request("POST", event_query).json()['response'][0]
 
-            party["name"] = comm_info['response'][0]['name']
-            date_timestamp = int(comm_info['response'][0]['start_date'])
+
+            party["name"] = comm_info['name']
+            date_timestamp = int(comm_info['start_date'])
             party['date'] = str(datetime.fromtimestamp(date_timestamp).isoformat())
             # stub
-            party['place'] = "ПАВЕРХАУС"
+            party['place'] = "Powerhouse"
             party['price'] = 0
+            party['link'] = 'https://vk.com' + comm_info['screen_name']
 
-            query = "INSERT INTO tusovka (name, date, description, price, place_id) VALUES " \
-                    "(%(name)s, %(date)s, %(description)s, %(price)s, " \
-                    "(SELECT id FROM place WHERE place.name = 'Powerhouse'))"
-            cursor.execute(query, party)
-
-            cnx.commit()
-
-cursor.close()
+            try:
+                cur.execute("INSERT INTO tusovka (name, description, date, price, link, place) VALUES (%s, %s, %s, %s, %s, %s)",
+                            [party[n] for n in ['name', 'description', 'date', 'price', 'link', 'place']])
+            except psycopg2.DatabaseError as e:
+                if cnx:
+                    cnx.rollback()
+cur.close()
 cnx.close()

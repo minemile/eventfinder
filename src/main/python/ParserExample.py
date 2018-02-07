@@ -3,10 +3,10 @@ import re
 from datetime import datetime
 import psycopg2
 
-with open('serviceToken','r') as f:
+with open('../resources/vkServiceToken','r') as f:
     TOKEN = f.read()
 
-cnx = psycopg2.connect("dbname='eventfinder' user='postgres' host='localhost' password='1'")
+cnx = psycopg2.connect("dbname='eventfinder' user='postgres' host='localhost' password='1234qwer'")
 cnx.autocommit = True
 cur = cnx.cursor()
 
@@ -39,6 +39,7 @@ for post in wall[1:]:
             try:
                 cur.execute("INSERT INTO tusovka (name, description, date, price, link, place) VALUES (%s, %s, %s, %s, %s, %s)",
                             [party[n] for n in ['name', 'description', 'date', 'price', 'link', 'place']])
+                print("inserted row")
             except psycopg2.DatabaseError as e:
                 if cnx:
                     cnx.rollback()

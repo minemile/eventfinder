@@ -1,7 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-src/main/python/serviceToken
+src/main/resources/*Token
 
 ### STS ###
 .apt_generated

@@ -1,4 +1,4 @@
-package com.banditos.server;
+package com.banditos.server.controller;
 
 import com.banditos.server.model.Tusovka;
 import com.banditos.server.orm.TusovkaRepository;

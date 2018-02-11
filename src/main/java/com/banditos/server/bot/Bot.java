@@ -39,6 +39,7 @@ public class Bot extends TelegramLongPollingBot {
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
+            BotMessageController.setMessage(message);
             Long chatId = message.getChatId();
             SendMessage response = BotMessageCreator.createTusovkasMessage(chatId);
 

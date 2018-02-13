@@ -22,11 +22,11 @@ public class Bot extends TelegramLongPollingBot {
 
     @Autowired
     public Bot(Environment env) {
-        Bot.telegramToken = env.getProperty("token.telegram");
+        Bot.telegramToken = env.getProperty("telegram.token");
     }
 
     @Override
-        public String getBotToken() {
+    public String getBotToken() {
             return telegramToken;
     }
 

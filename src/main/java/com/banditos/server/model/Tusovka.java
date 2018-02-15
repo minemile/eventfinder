@@ -1,7 +1,6 @@
 package com.banditos.server.model;
 
 import javax.persistence.*;
-import java.net.URL;
 import java.util.Date;
 
 @Entity
@@ -20,17 +19,18 @@ public class Tusovka {
 
     private String place;
 
-    private URL link;
+    private String link;
 
     private int price;
 
     protected Tusovka() {}
 
-    public Tusovka(Date date, String name, String description, String place, int price) {
+    public Tusovka(Date date, String name, String description, String place, String link, int price) {
         this.date = date;
         this.name = name;
         this.description = description;
         this.place = place;
+        this.link = link;
         this.price = price;
     }
 
@@ -76,11 +76,11 @@ public class Tusovka {
         this.place = place;
     }
 
-    public URL getLink() {
+    public String getLink() {
         return link;
     }
 
-    public void setLink(URL link) {
+    public void setLink(String link) {
         this.link = link;
     }
 
@@ -94,6 +94,8 @@ public class Tusovka {
 
     @Override
     public String toString() {
-        return name;
+        return  " name: " + name +
+                " date: " + date +
+                " place:  " + place;
     }
 }

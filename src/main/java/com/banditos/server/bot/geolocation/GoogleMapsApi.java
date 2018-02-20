@@ -25,7 +25,6 @@ public class GoogleMapsApi {
         GeocodingResult[] results = new GeocodingResult[0];
         try {
             results = GeocodingApi.reverseGeocode(geoApiContext, location).await();
-            //Thread.sleep(100);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,7 +35,6 @@ public class GoogleMapsApi {
         GeocodingResult[] results = new GeocodingResult[0];
         try {
             results = GeocodingApi.geocode(geoApiContext, address).await();
-            //Thread.sleep(800);
         } catch (Exception e) {
             e.printStackTrace();
         }

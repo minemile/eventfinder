@@ -18,7 +18,7 @@ public class Location {
 
     public Location(String address) {
         this.address = address;
-        // TODO: this.latLng = GoogleMapsApi.getCoordByAddr(String address);
+        this.latLng = GoogleMapsApi.getCoordinatesByAddress(address);
     }
 
     public LatLng getLatLng() {

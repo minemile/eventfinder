@@ -14,6 +14,8 @@ import com.vk.api.sdk.objects.wall.responses.GetExtendedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,8 +41,7 @@ public abstract class AbstractVkParser {
         this.tusovkaRepository = tusovkaRepository;
     }
 
-    public void getTusovkas() throws ApiException, ClientException
-    {
+    public void getTusovkas() throws ApiException, ClientException, MalformedURLException {
         GetExtendedResponse response = vk.wall().getExtended(actor).domain(domain).count(5).execute();
         List<Tusovka> tusovkas = new ArrayList<>();
         List<GroupFull> lgf = response.getGroups();
@@ -48,7 +49,12 @@ public abstract class AbstractVkParser {
         for (WallPostFull wpf : response.getItems())
         {
             GroupFull gf = lgf.get(i);
-            tusovkas.add(new Tusovka(Date.from(Instant.ofEpochSecond(wpf.getDate())), gf.getName(), wpf.getText(), "Таганка", 0));
+            tusovkas.add(new Tusovka(Date.from(Instant.ofEpochSecond(wpf.getDate()))
+                    , gf.getName()
+                    , wpf.getText()
+                    , "Таганка"
+                    , new URL("https://vk.com/club123456")
+                    , 0));
             i++;
         }
         tusovkaRepository.save(tusovkas);

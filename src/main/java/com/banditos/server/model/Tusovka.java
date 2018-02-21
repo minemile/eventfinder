@@ -26,11 +26,12 @@ public class Tusovka {
 
     protected Tusovka() {}
 
-    public Tusovka(Date date, String name, String description, String place, int price) {
+    public Tusovka(Date date, String name, String description, String place, URL link, int price) {
         this.date = date;
         this.name = name;
         this.description = description;
         this.place = place;
+        this.link = link;
         this.price = price;
     }
 
@@ -94,6 +95,8 @@ public class Tusovka {
 
     @Override
     public String toString() {
-        return name;
+        return  " name: " + name +
+                " date: " + date +
+                " place:  " + place;
     }
 }

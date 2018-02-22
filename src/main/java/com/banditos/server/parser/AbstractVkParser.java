@@ -57,6 +57,7 @@ public abstract class AbstractVkParser {
                     "Таганка",
                     new URL("https://xui.tebe"),
                     0));
+
             i++;
         }
         tusovkaRepository.save(tusovkas);

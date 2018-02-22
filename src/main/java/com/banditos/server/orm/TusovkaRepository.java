@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface TusovkaRepository extends CrudRepository<Tusovka, Long> {
 
-    Tusovka findByPlaceOrderByDateAsc(String place);
-
+    List<Tusovka> findByPlaceOrderByDateDesc(String place, Pageable pageable);
 }
